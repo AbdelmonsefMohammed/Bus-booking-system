@@ -32,7 +32,7 @@ final class DatabaseSeeder extends Seeder
             RouteSeeder::class,
         ]);
 
-        Ride::factory(10)->create();
+        Ride::factory(14)->create();
 
     }
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APIs\RideController;
+use App\Http\Controllers\APIs\BookingController;
 use App\Http\Controllers\APIs\Auth\LoginController;
 
 /*
@@ -15,9 +17,17 @@ use App\Http\Controllers\APIs\Auth\LoginController;
 |
 */
 
+Route::post('login', LoginController::class)->name('auth:login');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('login', LoginController::class)->name('auth:login');
+Route::middleware('auth:sanctum')->group(static function () : void {
+
+    Route::get('ride/listAvailableSeats', RideController::class);
+
+    Route::post('booking/store', BookingController::class);
+
+});
 

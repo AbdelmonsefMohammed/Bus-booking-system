@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('seat_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('start_location_id');
             $table->unsignedBigInteger('end_location_id');
-            $table->timestamps();
 
             $table->foreign('start_location_id')
                 ->references('id')->on('locations')->onDelete('cascade');

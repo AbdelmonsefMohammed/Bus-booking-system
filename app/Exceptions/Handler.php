@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Treblle\Tools\Http\Enums\Status;
 
 class Handler extends ExceptionHandler
 {
@@ -23,6 +25,14 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        $this->renderable(function (AuthenticationException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Not authenticated'
+                ], Status::UNAUTHORIZED->value);
+            }
+        });
+        
         $this->reportable(function (Throwable $e) {
             //
         });
