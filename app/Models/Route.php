@@ -4,23 +4,22 @@ declare( strict_types = 1 );
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-final class Location extends Model
+final class Route extends Model
 {
     use HasFactory;
-    
-    public $timestamps = false;
-    
+
     protected $fillable = [
         'name',
     ];
 
-    public function routes() : BelongsToMany
+    public function locations() : BelongsToMany
     {
         return $this->belongsToMany(
-            related: Route::class,
+            related: Location::class,
         )->withPivot('order'); 
     }
 }

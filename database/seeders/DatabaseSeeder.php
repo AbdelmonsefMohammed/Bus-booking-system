@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Bus;
+use App\Models\Ride;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,9 +17,6 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            LocationSeeder::class,
-        ]);
 
         User::factory()->create([
             'name' => 'Test User',
@@ -27,6 +25,14 @@ final class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
         Bus::factory(10)->create();
+
+        $this->call([
+            LocationSeeder::class,
+            SeatSeeder::class,
+            RouteSeeder::class,
+        ]);
+
+        Ride::factory(10)->create();
 
     }
 }

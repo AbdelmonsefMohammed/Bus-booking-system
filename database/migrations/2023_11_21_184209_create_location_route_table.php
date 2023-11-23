@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', static function (Blueprint $table): void {
+        Schema::create('location_route', static function (Blueprint $table): void {
             $table->id();
-            $table->string('name');
+            $table->foreignId('route_id')->constrained()->onDelete('cascade');
+            $table->foreignId('location_id')->constrained()->onDelete('cascade');
+            $table->unsignedSmallInteger('order');
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('location_route');
     }
 };
